@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <title>CM JS dev, requirement 8</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+        <script src="js/current-issues-controller.js"></script>
+    </head>
+
+    <body ng-app>
+        <div class="container" style="padding-top:30px" >
+            <div>
+                <p><a href="#">Load the current issues list</a></p>
+            </div>
+
+            <div id="results"  style="display: none;" ng-controller="CurrentIssuesCtrl">
+                <!-- Each issue should be rendered with the following template -->
+                <div class="issue-template" ng-repeat = "issue in searchResult">
+                    
+                    <!-- If status === Unresolved -->
+                    <h3  ng-if="issue.status == 'Unresolved'">
+                       {{issue.title}} - Begin {{calculateMins(issue.beganAt)}} miniutes ago
+                    </h3> 
+                    
+                    <!-- If status === Resolved -->
+                    <h3  ng-if="issue.status == 'Resolved'">
+                        {{issue.title}} - Resolved {{calculateMins(issue.resolvedAt)}} miniutes ago
+                    </h3> 
+
+                    <p>{{issue.description}}</p>
+
+                    <div style="padding-left:50px">
+                        <p>Updates:</p>
+                        <!-- Each update should be rendered with the following template -->
+                        <div class="update-template" ng-repeat ="update in issue.updates">
+                            <p >{{update.update}} </p>
+                            <em>By {{update.by}}  10 minutes ago</em>
+                            <hr style="width:50%"/>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+                <!-- Render this if there are no issues returned -->
+
+                <div class="no-issues-template" style="display:none">
+                    Everybody is happy!
+                </div>
+            </div>
+
+        </div>
+    </body> 
+</html>
